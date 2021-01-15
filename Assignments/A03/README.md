@@ -8,7 +8,7 @@ This program implements a list data structure that links together nodes of integ
 
 |   #   | File                                                                                         | Description                     |
 | :---: | -------------------------------------------------------------------------------------------- | ------------------------------- |
-|   1   | [main.cpp](https://github.com/apwarren/3013-Algorithms-Warren/blob/master/Assignments/02-CommentedCode/main.cpp) | Main driver of my list program. |
+|   1   | [main.cpp](https://github.com/apwarren/3013-Algorithms-Warren/blob/master/Assignments/A03/main.cpp) | Main driver of my list program. |
 
 ### Instructions
 
