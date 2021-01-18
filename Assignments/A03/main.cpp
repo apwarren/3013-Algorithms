@@ -2,7 +2,7 @@
 *
 * Author:      Allyson Warren
 * Email:       allywarren7@gmail.com
-* Label:       02-CommentedCode
+* Label:       A03
 * Title:       Commenting Code
 * Course:      CMPS 3013
 * Semester:    Spring 2021
