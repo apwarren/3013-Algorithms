@@ -38,27 +38,27 @@ int A[100];
 *                   Node(val)
 *
 * Usage:
-*     Node *Head;                       //Create Instance of Node
+*     Node *Head;                    //Create Instance of Node
 *
-*     Node *Temp = new Node(val);       //Create Instance of Node that holds 
-*                                       //a specific value
+*     Node *Temp = new Node(val);    //Create Instance of Node that holds 
+*                                    //a specific value
 *
-*     Node();                           //Node constructor
-*                                       //-defaults data value to -1
+*     Node();                        //Node constructor
+*                                    //-defaults data value to -1
 *
 */
 struct Node             
 {
-    int x;                              //Data value to be stored in the node       
-    Node* next;                         //Pointer to point to the next node
-    Node()                              //Default Constructor 
+    int x;                           //Data value to be stored in the node       
+    Node* next;                      //Pointer to point to the next node
+    Node()                           //Default Constructor 
     {                                   
-        x = -1;                         //Defaults data in node to -1
-        next = NULL;                    //Currently last node in list so points to NULL
+        x = -1;                      //Defaults data in node to -1
+        next = NULL;                 //Currently last node in list so points to NULL
     }
-    Node(int n)                         //Constructor to hold a specific value
+    Node(int n)                      //Constructor to hold a specific value
     {
-        x = n;                          //Sets data to hold a specific value
+        x = n;                       //Sets data to hold a specific value
         next = NULL;
     }
 };
@@ -88,29 +88,29 @@ struct Node
 *     No private methods
 *
 * Usage:
-*     List L;                           //Create instance of List
-*     L.Push(val);                      //Add an integer to the end of the list
-*                                       //or
-*     L.Insert(val);                    //insert an integer to the beginning of the list
-*
-*     L.PrintTail();                    //Print out the very last integer in the list
-*     L.Print();                        //Prints out the entire list
-*     L.Pop();                          //Returns the first integer in list and deletes it 
-*                                       //from the list
-*     L = L1 + L2;                      //Combines two List classes together into one List
-*     L[index];                         //gets a specific value from the list using array notation
-*     cout << L;                        //Prints from the list using the insertion operator
+*     List L;            //Create instance of List
+*     L.Push(val);       //Add an integer to the end of the list
+*                        //or
+*     L.Insert(val);     //insert an integer to the beginning of the list
+
+*     L.PrintTail();     //Print out the very last integer in the list
+*     L.Print();         //Prints out the entire list
+*     L.Pop();           //Returns the first integer in list and deletes it 
+*                        //from the list
+*     L = L1 + L2;       //Combines two List classes together into one List
+*     L[index];          //gets a specific value from the list using array notation
+*     cout << L;         //Prints from the list using the insertion operator
 *     
 */
 class List
 {
 private:
-    Node* Head;                         //Pointer to beginning of List
-    Node* Tail;                         //Pointer to end of List
-    int Size;                           //Size of List
+    Node* Head;          //Pointer to beginning of List
+    Node* Tail;          //Pointer to end of List
+    int Size;            //Size of List
 
 public:
-    List()                              //Defaults an empty List
+    List()                          //Defaults an empty List
     {
         Head = Tail = NULL;             
         Size = 0;
@@ -182,7 +182,7 @@ public:
 */
     void PrintTail()
     {
-        cout << Tail->x << endl;        //Print value stored in the last node in list
+        cout << Tail->x << endl;    //Print value stored in the last node in list
     }
 /**
 * Public : Print
@@ -199,17 +199,17 @@ public:
 */
     string Print()
     {
-        Node* Temp = Head;                       //Get Address to the beginning of the list
-        string list;                             //Holds all values from the list
+        Node* Temp = Head;          //Get Address to the beginning of the list
+        string list;                //Holds all values from the list
 
-        while (Temp != NULL)                     //Not at the end of the list
+        while (Temp != NULL)        //Not at the end of the list
         {
-                                                 //Add values from list and separate with an arrow 
+                                    //Add values from list and separate with arrow 
             list += to_string(Temp->x) + "->";
-            Temp = Temp->next;                   //Go to next value in list
+            Temp = Temp->next;      //Go to next value in list
         }
 
-        return list;                             //return string with list's values
+        return list;                //return string with list's values
     }
 /**
 * Public : Pop
@@ -245,26 +245,26 @@ public:
     List operator+(const List& Rhs)
     {
         
-        List NewList;                 //Create a new list that will contain both when done
+        List NewList;            //Create a new list that contains both when done
 
-        Node* Temp = Head;            //Get a reference to beginning of local list
+        Node* Temp = Head;       //Get a reference to beginning of local list
 
-        while (Temp != NULL)          //Loop through local list and Push values onto new list
+        while (Temp != NULL)     //traverse local list and Push values onto new list
         {
             NewList.Push(Temp->x);
-            Temp = Temp->next;        //Go to next node in list
+            Temp = Temp->next;   //Go to next node in list
         }
                                
-        Temp = Rhs.Head;              //Get a reference to head of Rhs
+        Temp = Rhs.Head;         //Get a reference to head of Rhs
 
-        while (Temp != NULL)          //Same as above, loop and push
+        while (Temp != NULL)     //Same as above, loop and push
         {
             NewList.Push(Temp->x);
             Temp = Temp->next;
         }
 
         
-        return NewList;               //Return new concatenated version of lists
+        return NewList;            //Return new concatenated version of lists
     }
 /**
 * Public : operator[]
@@ -339,12 +339,12 @@ int main(int argc, char** argv)
     }
 
     //cout << L1 << endl;
-    L1.PrintTail();         //Prints last value of first list
-    L2.PrintTail();         //Prints last value of second list
+    L1.PrintTail();       //Prints last value of first list
+    L2.PrintTail();       //Prints last value of second list
 
-    List L3 = L1 + L2;      //Combine first and second lists together to a third list
-    cout << L3 << endl;     //Prints out entire third list with specific formatting
+    List L3 = L1 + L2;    //Combine first and second lists together to a third list
+    cout << L3 << endl;   //Prints out entire third list with specific formatting
 
-    cout << L3[5] << endl;  //Print out the fifth value from the third list
+    cout << L3[5] << endl;//Print out the fifth value from the third list
     return 0;
 }
