@@ -30,10 +30,10 @@ order.
 
 - This program can accept 0-4 command line parameters if desired.
 - The order of the parameters is:
-- When stack is considered too full percent-wise (.8)
-- When stack is too empty percent-wise (.1)
-- How much to grow stack by (1.25)
-- How much to shrink stack by (.3)
+    - When stack is considered too full percent-wise (.8)
+    - When stack is too empty percent-wise (.1)
+    - How much to grow stack by (1.25)
+    - How much to shrink stack by (.3)
 
 
 ### Example Command
