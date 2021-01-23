@@ -7,7 +7,7 @@ taken from an input file. An odd number means to remove a number currently in th
 stack and any even numbers are to be pushed and added to the stack. The stack adjusts 
 and ensures that its size can hold at least ten integers at all times and then grows 
 and shrinks the array based on either the default parameters implemented or any given
-parameters stated in the command line. The default paramters ensure that if the stack
+parameters stated in the command line. The default parameters ensure that if the stack
 is completely full then it will double its size and if the stack only has 15% of its
 full capacity, then it will downsize and shrink the stack to half its previous size 
 unless the size becomes less than ten which will then set the size to be ten. If the
