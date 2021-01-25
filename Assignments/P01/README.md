@@ -22,7 +22,7 @@ order.
 |   #   | File                                                                                         | Description                     |
 | :---: | -------------------------------------------------------------------------------------------- | ------------------------------- |
 |   1   | [main.cpp](https://github.com/apwarren/3013-Algorithms-Warren/blob/master/Assignments/P01/main.cpp) | Main driver of Stack program. |
-|   2   | [nums_test.dat](https://github.com/apwarren/3013-Algorithms-Warren/blob/master/Assignments/P01/nums_test.dat) | Files of all numbers to be read by program |
+|   2   | [nums_test.dat](https://github.com/apwarren/3013-Algorithms-Warren/blob/master/Assignments/P01/nums_test.dat) | File of all numbers to be read by program |
 
 
 
