@@ -53,7 +53,8 @@ using namespace std;
  * Public Methods:
  *      - Stack(double = , double =, double =, double = ,)
  *      - void Push()
- *      - void Pop()
+ *      - int Pop()
+ *      - int Peek()
  *      - int getMaxSize()
  *      - int getFinalSize()
  *      - int getResizeCount()
@@ -72,6 +73,7 @@ using namespace std;
  *  S.Push(80);
  *  S.Push(90);
  *  S.Pop();
+ *  S.Peek();
  *  S.getMaxSize();
  *  S.getFinalSize();
  *  S.getResizeCount();
@@ -175,6 +177,26 @@ public:
         return data;             //Send item back
     }
 
+    /**
+      * Public: Peek
+      *
+      * Description:
+      *      Returns top value without altering the stack
+      *
+      * Params:
+      *      NULL
+      *
+      * Returns:
+      *      [int] top value of stack if any
+      */
+    int Peek() {
+        if (!Empty()) {
+            return S[StackTop];
+        }
+
+        return -1;  // some sentinel value
+                    // not a good solution
+    }
     /**
       * Public: getLargestSize
       *    Returns the largest size the array grew to overall
@@ -409,7 +431,7 @@ int main(int argc, char** argv)
     }
 
     ifstream infile;                //Read from input.txt file
-    infile.open("nums_test.dat");
+    infile.open("commands.dat");
     ofstream outfile;               //Make and open an output file to place data into
     outfile.open("output.txt");
 
