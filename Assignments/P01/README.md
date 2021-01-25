@@ -22,7 +22,14 @@ order.
 |   #   | File                                                                                         | Description                     |
 | :---: | -------------------------------------------------------------------------------------------- | ------------------------------- |
 |   1   | [main.cpp](https://github.com/apwarren/3013-Algorithms-Warren/blob/master/Assignments/P01/main.cpp) | Main driver of Stack program. |
-|   2   | [nums_test.dat](https://github.com/apwarren/3013-Algorithms-Warren/blob/master/Assignments/P01/nums_test.dat) | File of all numbers to be read by program |
+|   2   | [nums_test.dat](https://github.com/apwarren/3013-Algorithms-Warren/blob/master/Assignments/P01/nums_test.dat) | File 1 of all numbers to be read by program |
+|   3   | [nums.dat](https://github.com/apwarren/3013-Algorithms-Warren/blob/master/Assignments/P01/nums.dat) | File 2 of all numbers to be read by program |
+|   4   | [commands.dat](https://github.com/apwarren/3013-Algorithms-Warren/blob/master/Assignments/P01/commands.dat) | File 3 of all numbers to be read by program |
+|   5   | [nums_test_output.dat](https://github.com/apwarren/3013-Algorithms-Warren/blob/master/Assignments/P01/nums_test_output.dat) | Output file for nums_test.dat. Shows max size, final size, and resize count of stack. |
+|   6   | [nums_output.dat](https://github.com/apwarren/3013-Algorithms-Warren/blob/master/Assignments/P01/nums_output.dat) | Output file for nums.dat. Shows max size, final size, and resize count of stack. |
+|   7   | [commands_output.dat](https://github.com/apwarren/3013-Algorithms-Warren/blob/master/Assignments/P01/commands_output.dat) | Output file for commands.dat. Shows max size, final size, and resize count of stack. |
+
+
 
 
 
