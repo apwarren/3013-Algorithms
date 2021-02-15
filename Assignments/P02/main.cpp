@@ -123,12 +123,12 @@ class List
     LetterIndex++;
     return total;
   }
-  string Suggestions()
+  string Suggestions(int total)
   {
     string suggests = "";
     Node* temp = Current;
     int words = 0;
-    while(words < 10 && temp != NULL)
+    while(words < 10 && words < total && temp != NULL)
     {
       suggests += temp->Data->getWord() + " ";
       temp = temp->next;
@@ -153,6 +153,7 @@ int main() {
     char letter;
     string word = "";
     int index = 0;
+    int total;
     while ((int)(letter = getch()) != 10) 
     {
         trio :: clear_screen();
@@ -160,13 +161,14 @@ int main() {
         word += letter;
         io<< front << word << '\n';
         T.Start();
-        cout << WordDefs.Find(letter) << " words found in ";
+        total = WordDefs.Find(letter);
+        cout << total << " words found in ";
         T.End();
         sec = T.Seconds();
         millsec = T.MilliSeconds();
         
         cout << sec <<millsec << "seconds" << endl;
-        cout << WordDefs.Suggestions();        
+        cout << WordDefs.Suggestions(total);        
         index++;
     }
 }
