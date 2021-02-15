@@ -17,12 +17,13 @@
 *       stated in the command line. The default paramters ensure that if the
 *       stack is completely full then it will double its size and if the stack
 *       only has 15% of its full capacity, then it will downsize and shrink
-*       the stack to half its previous size unless the size becomes less than ten which *       will then set the size to be ten. If the program is given parameters
+*       the stack to half its previous size unless the size becomes less than ten 
+*       which will then set the size to be ten. If the program is given parameters
 *       then the first parameter represents when the stack has become too full,
 *       the second is when it is too empty, the third represents how much to grow
-*       a full stack by, and the last parameter is how much to shrink an empty stack by.
-*       The program can accept 0-4 parameters from the command line following their
-*       specific order.
+*       a full stack by, and the last parameter is how much to shrink an empty stack 
+*       by. The program can accept 0-4 parameters from the command line following 
+*       their specific order.
 *
 * Usage:
 *       None for now
@@ -290,12 +291,12 @@ public:
     */
     void CheckSize()
     {
-        double Ratio = (double)ItemSize / StackSize;      //What percent of space data is taking up
-        if (Ratio >= TooFull)                     //Stack has too many values
-            ContainerGrow();                      //Resize and grow stack
+        double Ratio = (double)ItemSize / StackSize; //Percent of taken stack space
+        if (Ratio >= TooFull)                        //Stack has too many values
+            ContainerGrow();                         //Resize and grow stack
 
-        else if (Ratio <= TooEmpty)               //Stack has too few values
-            ContainerShrink();                    //Resize and shrink stack
+        else if (Ratio <= TooEmpty)                  //Stack has too few values
+            ContainerShrink();                       //Resize and shrink stack
     }
 
     /**
@@ -323,23 +324,24 @@ public:
     */
     void ContainerGrow()
     {
-        int newSize = int(ceil(StackSize * GrowSize));//New stack size(Decimal round up to next int)
+                                            //New stack size-Decimal round up
+        int newSize = int(ceil(StackSize * GrowSize));
 
-        int* newStack = new int[newSize];             //New stack with increased size
+        int* newStack = new int[newSize];   //New stack with increased size
 
         for (int x = 0; x < ItemSize; x++)
         {
-            newStack[x] = S[x];                    //Fill new stack with current values
+            newStack[x] = S[x];             //Fill new stack with current values
         }
 
-        delete[] S;                              //Delete previous stack
-        S = newStack;                            //Point to new stack
-        StackSize = newSize;                     //Change stack size to new size 
+        delete[] S;                         //Delete previous stack
+        S = newStack;                       //Point to new stack
+        StackSize = newSize;                //Change stack size to new size 
 
-        if (LargestSize < StackSize)              //New size is larger than any previous size  
-            LargestSize = StackSize;               //Store new largest size
+        if (LargestSize < StackSize)        //New size is larger than previous size  
+            LargestSize = StackSize;        //Store new largest size
 
-        ResizeCount++;                           //Stack has been resized
+        ResizeCount++;                      //Stack has been resized
 
     }
 
@@ -365,27 +367,28 @@ public:
     */
     void ContainerShrink()
     {
-        int newSize = int(StackSize * ShrinkSize);  //Get new stack size(Decimal is truncated)
-        if (newSize <= 10)                        //Stack must be at least size 10
+                                          //Get new stack size-Decimal is dropped
+        int newSize = int(StackSize * ShrinkSize);
+        if (newSize <= 10)                //Stack must be at least size 10
         {
-            if (StackSize == 10)                //Stack is already min size, don't resize
+            if (StackSize == 10)          //Stack is already min size, don't resize
                 return;
             else
                 newSize = 10;
         }
 
-        int* newStack = new int[newSize];      //New stack with shrunken size
+        int* newStack = new int[newSize]; //New stack with shrunken size
 
         for (int x = 0; x < ItemSize; x++)
         {
-            newStack[x] = S[x];                  //Fill new stack with current values
+            newStack[x] = S[x];           //Fill new stack with current values
         }
 
-        delete[] S;                            //Delete previous stack
-        S = newStack;                          //Point to new stack
-        StackSize = newSize;                   //Change stack size to new size 
+        delete[] S;                       //Delete previous stack
+        S = newStack;                     //Point to new stack
+        StackSize = newSize;              //Change stack size to new size 
 
-        ResizeCount++;                         //Stack has been resized
+        ResizeCount++;                    //Stack has been resized
     }
 };
 
@@ -408,48 +411,49 @@ int main(int argc, char** argv)
 {
 
     Stack* S;                       //Create a stack pointer
-    switch (argc)                   //Check for command line parameters - Create Stack
-    {
+    switch (argc)                   //Check for command line parameters
+    {                               //Create Stack
     case 1:                         //No given parameters
-        S = new Stack();                    //Create Default Stack Object
+        S = new Stack();            //Create Default Stack Object
         break;
 
-    case 2:                         //Declare when stack is too full, use defaults for rest
+    case 2:                         //Declare when stack is too full only
         S = new Stack(atof(argv[1]));
         break;
 
-    case 3:                         //Declare when stack is full and empty, use default grow and shrink
+    case 3:                         //Declare when stack is full and empty
         S = new Stack(atof(argv[1]), atof(argv[2]));
         break;
 
-    case 4:                         //Declare Fullness, Emptiness, and growth of stack, use default shrink
+    case 4:                         //Declare Fullness, Emptiness, and Growth
         S = new Stack(atof(argv[1]), atof(argv[2]), atof(argv[3]));
         break;
 
-    default:                        //Declare all parameters, any extra parameters are ignored
+    default:                        //Declare all parameters
         S = new Stack(atof(argv[1]), atof(argv[2]), atof(argv[3]), atof(argv[4]));
     }
 
-    ifstream infile;                //Read from input.txt file
-    infile.open("commands.dat");
-    ofstream outfile;               //Make and open an output file to place data into
-    outfile.open("output.txt");
+    ifstream infile;                //Read from input  file
+    infile.open("nums_test.dat");
+    ofstream outfile;               //Make and open  output file
+    outfile.open("nums_test_output.txt");
 
     int data;                       //Value to either push or pop
     while (infile >> data)          //Read all data items in file
     {
-        if (data & 1)                 //Int is odd, call pop function
+        if (data & 1)               //Int is odd, call pop function
         {
-            S->Pop();                    //Remove last int added to stack
+            S->Pop();               //Remove last int added to stack
         }
-        else                          //Int is even, add to stack
+        else                        //Int is even, add to stack
         {
-            S->Push(data);               //Add number to stack        
+            S->Push(data);          //Add number to stack        
         }
     }
 
     //Print to output file
-    outfile << "######################################################################\n";
+    outfile << 
+    "######################################################################\n";
     // Prints student information to output file
     outfile << Header();
     //Print out largest and final size of the stack. 
@@ -457,17 +461,20 @@ int main(int argc, char** argv)
     outfile << "End Stack Size: " << S->getFinalSize() << endl;
     //Print out how many times stack was resized
     outfile << "Stack Resized: " << S->getResizeCount() << endl;
-    outfile << "######################################################################\n";
+    outfile << 
+    "######################################################################\n";
 
-    //Print to screen
-    cout << "######################################################################\n";
-    cout << Header();               //Prints student information to screen
+    //Print to Student Information to screen
+    cout << 
+    "######################################################################\n";
+    cout << Header(); 
     //Print out largest and final size of the stack. 
     cout << "Max Stack Size: " << S->getLargestSize() << endl;
     cout << "End Stack Size: " << S->getFinalSize() << endl;
     //Print out how many times stack was resized
     cout << "Stack Resized: " << S->getResizeCount() << endl;
-    cout << "######################################################################\n";
+    cout << 
+    "######################################################################\n";
 
     infile.close();
     outfile.close();
