@@ -122,21 +122,6 @@ class wordNode
     {
         return Word;
     }
-
-    /**
-    * Public: getLetter
-    *    Getter functin to return a specific letter in a word given 
-    *    a certain index. 
-    * Params:
-    *    int : index of which letter to return 
-    *
-    * Returns:
-    *     char  :  desired letter in the word
-    */
-    char getLetter(int index)
-    {
-        return Word[index];
-    }
 };
 
 /**
@@ -305,16 +290,18 @@ class List
     * Returns:
     *     int   :   Total number of similar words in list
     */
-    int Find(char letter)
+    int Find(string word)
     {
-        Node* temp = Current;         //Create temporary pointer that starts at last viewed node
+        Node* temp = Head;            //Create temporary pointer that starts at last viewed node
         Found = false;                //No matches have been found
         total = 0;                    //There are no similar words yet
-        static int LetterIndex = 0;   //Index of letter to compare each time
+        string DictWord;
 
         while(temp != NULL && !Found) //Keep going unless at end of list or found all matches
-        {                             //Compare letter to letter in word
-            if(temp->Data->getLetter(LetterIndex) == letter)  
+        {         
+            DictWord = temp->Data->getWord();  //Get each dictionary word
+                                               //Dictionary word contains current typing
+            if(DictWord.compare(0,word.size(), word) == 0)
             {
                 if(total == 0)            
                 {
@@ -335,7 +322,6 @@ class List
             temp = temp->next;            //Move to next word in list
         }
 
-        LetterIndex++;                    //Move on to next letter in word
         return total;                     //Return number of matches found
     }
 
@@ -383,7 +369,7 @@ int main()
     char letter;                        //Letter to look at from input
     string word = "";                   //Total word being typed by user
     int total;                          //total matches found in list
-
+    int wordSize = 0;                   //Size of typed word
 
     WordDefs.Fill(J);                   //Fill list with words and defs from json class
     
@@ -392,15 +378,30 @@ int main()
                                         //Continue until user presses enter
     while ((int)(letter = getch()) != 10) 
     {
+        wordSize++;           //Another letter has been typed
+        if((int)letter == 127)//If the letter is a backspace
+        {
+          if(wordSize > 0)    //A letter has been typed
+          {
+            word.erase(wordSize-2, 1);//Remove last letter typed
+            wordSize-=2;      //Size is now 1 less than before
+          }
+        }
+        else
+        {
+          word += letter;               //Add letter pressed to total word
+        }
         trio :: clear_screen();         //Clear the screen
         trio :: Point front(1,0);       //Set the pointer to top of list
+        trio :: Point endWord(1, (wordSize + 7));     //Set pointer to back of typed word
 
-        word += letter;                 //Add letter pressed to total word
-                                        //Print current word to screen
+          //Print current word to screen
         io<< front << "input: " << word << '\n';
+                cout << (int)letter << endl;
+
 
         T.Start();                      //Begin timer to look for matches
-        total = WordDefs.Find(letter);  //Total is all matches found
+        total = WordDefs.Find(word);  //Total is all matches found
 
         cout << total << " words found in ";
         T.End();                        //End timer as all matches have been found
@@ -409,6 +410,7 @@ int main()
         millsec = T.MilliSeconds();     //Set to number of milliseconds
         
         cout << setw(4) << sec << " seconds" << endl;   //Diplay time it took to find matches
-        cout << WordDefs.Suggestions(total);            //Display suggested matches to screen
+        io << WordDefs.Suggestions(total) << endWord;            //Display suggested matches to screen
+        
     }
 }
