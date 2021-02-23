@@ -373,7 +373,7 @@ int main()
 
     WordDefs.Fill(J);                   //Fill list with words and defs from json class
     
-    cout << "input: ";                  //Prompt user to type
+    cout << setprecision(3) << "input: ";                  //Prompt user to type
 
                                         //Continue until user presses enter
     while ((int)(letter = getch()) != 10) 
@@ -397,8 +397,6 @@ int main()
 
           //Print current word to screen
         io<< front << "input: " << word << '\n';
-                cout << (int)letter << endl;
-
 
         T.Start();                      //Begin timer to look for matches
         total = WordDefs.Find(word);  //Total is all matches found
