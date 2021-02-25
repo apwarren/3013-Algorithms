@@ -4,9 +4,9 @@
 
 -----
 
-- Count = O(1,048,576)
+- Count = 1,048,576
   
-- Complexity = n^2
+- Complexity = O(n^2)
 ```cpp
 int count = 0;
 int n = 1024;
@@ -22,7 +22,7 @@ cout<<count<<endl;
 
 - Count = 523,776
   
-- Complexity = O(n^2)
+- Complexity = O((n^2-n)/2)
 ```cpp
 int count = 0;
 int n = 1024;
@@ -38,7 +38,7 @@ cout<<count<<endl;
 
 - Count = 536,346,624
   
-- Complexity = O(n^3)
+- Complexity = O((n^3-n^2)/2)
 ```cpp
 int count = 0;
 int n = 1024;
@@ -56,7 +56,7 @@ cout<<count<<endl;
 
 - Count = 2,048
 
-- Complexity = O(n)
+- Complexity = O(2n)
 ```cpp
 int count=0;
 int n = 1024;
@@ -68,7 +68,7 @@ cout<<count<<endl;
 
 -----
 
-- Count = 20,97,152
+- Count = 2,097,152
   
 - Complexity = O(n*2n)
 ```cpp
@@ -86,7 +86,7 @@ cout<<count<<endl;
 
 - Count = 524,800
   
-- Complexity = O(n^2)
+- Complexity = O(n+((n^2-n)/2))
 ```cpp
 int count=0;
 int n = 1024;
