@@ -15,17 +15,17 @@
 *       and show how many words were found that matched with the letter typed. 
 *       AFter each letter is typed, the computer will then continue to display how
 *       many similar words appear in the list and will also give ten suggested words
-*       from the list that it believes to be the word that is being typed by the user.
-*       The program also displays how long it takes to find all similar words and will display
-*       the time as well to the screen. As each letter is typed to the screen from the user
-*       the search will become faster as the program continues to look for similar words
-*       based on the last search it did. 
+*       from the list that it believes to be the word that is being typed by the 
+*       user. The program also displays how long it takes to find all similar words 
+*       and will display the time as well to the screen. As each letter is typed to 
+*       the screen from the user the search will become faster as the program 
+*       continues to look for similar words based on the last search it did. 
 * Usage:
 *       None for now
 *
 * Files:
 *       main.cpp         :  driver program
-*       dict_w_defs.json :  file containing all words and definitions to be put in list
+*       dict_w_defs.json :  file containing words and definitions to be put in list
 *       json.hpp         :  program to handle and retrieve dict_w_defs.json
 *       JsonFacade.hpp   :  program to condense json.hpp
 *       mygetch.hpp      :  program to allow getching and user input
@@ -234,8 +234,8 @@ class List
         if (Head == NULL)                    //Temp is first item in list
         {  
             Head = temp;                     //Temp is at front of list
-            Current = Head;                  //The first item will be looked at first
-            Tail = temp;                     //The end of the list is the front of the list
+            Current = Head;                  //No current suggestions
+            Tail = temp;                     //The end of the list is front of list
             return;  
         } 
 
@@ -292,15 +292,15 @@ class List
     */
     int Find(string word)
     {
-        Node* temp = Head;            //Create temporary pointer that starts at last viewed node
+        Node* temp = Head;            //Start search at list beginning
         Found = false;                //No matches have been found
         total = 0;                    //There are no similar words yet
         string DictWord;
 
-        while(temp != NULL && !Found) //Keep going unless at end of list or found all matches
+        while(temp != NULL && !Found) //Keep going unless at end or found all match
         {         
             DictWord = temp->Data->getWord();  //Get each dictionary word
-                                               //Dictionary word contains current typing
+                                               //Word contains current typing
             if(DictWord.compare(0,word.size(), word) == 0)
             {
                 if(total == 0)            
@@ -344,7 +344,7 @@ class List
         Node* temp = Current;   //Temp node that points to first matching word
         int words = 0;          //Number of words added to string
 
-        //Continue until 10 words have been found, there's no more matches, or end of list
+        //Continue until 10 words found, no more matches, or end of list
         while(words < 10 && words < total && temp != NULL)
         {
             suggests += temp->Data->getWord() + "  ";   //Add word to string
@@ -371,44 +371,47 @@ int main()
     int total;                          //total matches found in list
     int wordSize = 0;                   //Size of typed word
 
-    WordDefs.Fill(J);                   //Fill list with words and defs from json class
+    WordDefs.Fill(J);                   //Fill list w/ words & defs from json class
     
-    cout << setprecision(3) << "input: ";                  //Prompt user to type
+    cout << setprecision(3) << "input: ";//Prompt user to type
 
                                         //Continue until user presses enter
     while ((int)(letter = getch()) != 10) 
     {
-        wordSize++;           //Another letter has been typed
-        if((int)letter == 127)//If the letter is a backspace
+        wordSize++;                    //User has pressed a key
+
+        if((int)letter == 127)         //If the input is a backspace
         {
-          if(wordSize > 0)    //A letter has been typed
+          if(wordSize > 0)             //A letter has been pressed previously
           {
-            word.erase(wordSize-2, 1);//Remove last letter typed
-            wordSize-=2;      //Size is now 1 less than before
+            word.erase(wordSize-2, 1); //Remove last letter typed
+            wordSize-=2;               //Size is now 1 less than before
           }
         }
-        else
+
+        else                            //Input is a character
         {
           word += letter;               //Add letter pressed to total word
         }
-        trio :: clear_screen();         //Clear the screen
-        trio :: Point front(1,0);       //Set the pointer to top of list
-        trio :: Point endWord(1, (wordSize + 7));     //Set pointer to back of typed word
 
-          //Print current word to screen
+        trio :: clear_screen();                   //Clear the screen
+        trio :: Point front(1,0);                 //Set the pointer to top of list
+        trio :: Point endWord(1, (wordSize + 7)); //Set point to back of typed word
+
+        //Print current word to screen
         io<< front << "input: " << word << '\n';
 
-        T.Start();                      //Begin timer to look for matches
-        total = WordDefs.Find(word);  //Total is all matches found
+        T.Start();                    //Begin timer to look for matches
+        total = WordDefs.Find(word);  //Total is # of all matches found
 
         cout << total << " words found in ";
-        T.End();                        //End timer as all matches have been found
+        T.End();                        //End timer- all matches have been found
 
         sec = T.Seconds();              //Set to number of seconds
         millsec = T.MilliSeconds();     //Set to number of milliseconds
         
-        cout << setw(4) << sec << " seconds" << endl;   //Diplay time it took to find matches
-        io << WordDefs.Suggestions(total) << endWord;            //Display suggested matches to screen
+        cout << setw(4) << sec << " seconds" << endl; //Diplay time to find matches
+        io << WordDefs.Suggestions(total) << endWord; //Display suggested matches
         
     }
 }
