@@ -32,10 +32,12 @@
 *
 *******************************************************************************/
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <iomanip>
 #include "mygetch.hpp"
 #include "termcolor.hpp"
+#include "trio.hpp"
 #include <time.h>
 #include <chrono> 
 #include "timer.hpp"            // need to grab a copy from resources folder
@@ -45,13 +47,13 @@ using namespace std;
  * wordNode
  *
  * Description:
- *      Class to store the word and definition from the json file.
+ *      Class to store the word from the dictionary.txt file.
  *      This class is only called and used in the List class. The 
  *      class also handles any letter or word manipulation/searching.
  *
  * Public Methods:
  *      - wordNode()
- *      - wordNode(string, string)
+ *      - wordNode(string)
  *      - string getWord()
  *      - char getLetter()
  * 
@@ -70,7 +72,6 @@ class wordNode
 {
   private:
     string Word;        //String for each defintion's word
-    string Definition;  //String for the entire definition
 
   public:
     /**
@@ -85,24 +86,21 @@ class wordNode
     wordNode()
     {
         Word = "";
-        Definition = "";
     }
 
     /**
-    * WordNode(string, string):
+    * WordNode(string):
     *    Constructor that sets the two private string to
     *     a specific strings.
     * Params:
     *    1 string   : word to be placed into list
-    *    1 string   : definition of word to be placed in list
     *
     * Returns:
     *     Void
     */
-    wordNode(string w, string def)
+    wordNode(string wor)
     {
-        Word = w;
-        Definition = def;
+        Word = wor;
     }
 
     /**
@@ -149,7 +147,7 @@ struct Node
  *
  * Description:
  *      A linked list class to hold the words and definition from
- *      the json file. The class also keeps track of both the front and
+ *      the txt file. The class also keeps track of both the front and
  *      back of the list as well as the last placed viewed in the list
  *      locations.  The list can compare letters of words and also 
  *      search in the list for any words that may be similar to a given
@@ -159,7 +157,7 @@ struct Node
  * Public Methods:
  *      - List()
  *      - void Insert(string, string)
- *      - void Fill(JsonFacade)
+ *      - void Fill(string)
  *      - int Find(char)
  *      - string Suggestions(int)
  * 
@@ -184,9 +182,6 @@ class List
     int size;             //Size of the list
     int total;            //Number of matching words in list compared to input
     int index;            //Index of letter to compare
-    string key;           //Key variable to access json object
-    string value;         //Value variable to access json definition
-    vector<string> keys;  //Vector of words in json object
     bool Found;           //Flag to see if letter has been found
 
   public:
@@ -210,11 +205,10 @@ class List
 
     /**
     * Public: Insert
-    *    Function to directly place words and definitions into
+    *    Function to directly place words into
     *    the list. Sets the Tail pointer to last item in list
     *    and the Head pointer to front if the item is first in
-    *    the list. The words and definitions are placed into a 
-    *    wordNode.
+    *    the list. The words are placed into a wordNode.
     * Params:
     *    string :   word string to go into data
     *    string :   definition string to go into data space
@@ -222,10 +216,10 @@ class List
     * Returns:
     *    void
     */
-    void Insert(string Word, string Def)
+    void Insert(string Word)
     {
         Node* temp = new Node;               //Create a temporary node
-        temp->Data = new wordNode(Word, Def);//Store new data into temp node
+        temp->Data = new wordNode(Word);//Store new data into temp node
         temp->next = NULL;                   //Temp node is last in list
 
         if (Head == NULL)                    //Temp is first item in list
@@ -249,26 +243,26 @@ class List
     *    This function fills the list with values given from a JsonFacade class
     *    that gets words and definitions from a json file. The method 
     *    then calls the Insert function to directly place the items into
-    *    the linked list. Insert is separate from fill as Insert handles placing
-    *    items into the list directlhy while Fill handles all json work and gets
-    *    the words and definitions to insert. 
+    *    the linked list. Fill handles all input reading while the 
+    *    Insert function actually places values into the linked list. 
     * Params:
     *    JsonFacade :   Class containing words and defintions to place into list
     *
     * Returns:
     *    Void
     */
-    void Fill(JsonFacade J)
+    void Fill(string filename)
     {
-        keys = J.getKeys();          //Get vector of all words for list
-        size = keys.size();          //Size of vector = size of list
+        ifstream infile;      //Open dictionary word file
+        infile.open(filename);
+
+        string word;          //Dictionary word to be stored
 
         //Fill in linked list
-        for(int index = 0; index < size; index++)
+        while(!infile.eof())  //Read until end of file
         {
-            key = J.getKey(index);   //Get each Word
-            value = J.getValue(key); //Get word's definition
-            Insert(key, value);      //Place word and def into list
+          infile >> word;     //Get word from input file
+          Insert(word);       //Place word into list
         }
     }
 
@@ -326,16 +320,17 @@ class List
     * Public: Suggestions
     *    This function returns words that closely match the word
     *    typed by the user. If there are more than ten words that
-    *    match the input, then the function will only return the
-    *    first ten matching words in the list. Otherwise, it will
-    *    return all matching words if less than 10 only. 
+    *    match the input, then the function prints the first
+    *    ten matching words in the list unless there are less.
+    *    Otherwise, it will return all matching words if less 
+    *    than 10 only. 
     * Params:
     *    int    :   # of words found to match input
     *
     * Returns:
     *    string :   first 10 or less similar words to input
     */
-    string Suggestions(int total)
+    void Suggestions(int total)
     {
         string suggests = "";   //All words that currently match
         Node* temp = Current;   //Temp node that points to first matching word
@@ -344,12 +339,16 @@ class List
         //Continue until 10 words found, no more matches, or end of list
         while(words < 10 && words < total && temp != NULL)
         {
-            suggests += temp->Data->getWord() + "  ";   //Add word to string
-            temp = temp->next;                          //Move on to next word
-            words++;                                    //Increment words to suggest
+            if(words == 0)//First suggested word is printed in red
+            {
+              cout << termcolor::red;
+            }
+            cout << temp->Data->getWord() + "  ";  //Print word to screen
+            cout << termcolor::reset;              //Print in normal color
+            temp = temp->next;                     //Move on to next word
+            words++;                               //Increment words to suggest
         }
 
-        return suggests;   //Return string containing top 10 matching words
     }
 };
 
@@ -358,7 +357,6 @@ class List
 int main() 
 {
     List WordDefs;                      //Create linked list
-    JsonFacade J("dict_w_defs.json");   //Create instance of json class
     Timer T;                            //Create timer
     double sec;                         //Number of seconds of timer
     long millsec;                       //Number of milliseconds of timer
@@ -368,9 +366,9 @@ int main()
     int total;                          //total matches found in list
     int wordSize = 0;                   //Size of typed word
 
-    WordDefs.Fill(J);                   //Fill list w/ words & defs from json class
+    WordDefs.Fill("dictionary.txt");    //Fill list w/ dictionary wordSize
     
-    cout << setprecision(3) << "input: ";//Prompt user to type
+    cout << setprecision(3) << "input: ";//Prompt user to type & set decimals
 
                                         //Continue until user presses enter
     while ((int)(letter = getch()) != 10) 
@@ -396,19 +394,24 @@ int main()
         trio :: Point endWord(1, (wordSize + 7)); //Set point to back of typed word
 
         //Print current word to screen
-        io<< front << "input: " << word << '\n';
+        io<< front << "input: ";
+        cout << termcolor::red << word; //Word is printed red
+        cout << termcolor::reset <<'\n';//Reset coloring to normal
 
         T.Start();                    //Begin timer to look for matches
         total = WordDefs.Find(word);  //Total is # of all matches found
 
-        cout << total << " words found in ";
+        cout << termcolor::red << total;//Typed word is shown in red
+        cout << termcolor::reset;       //Go back to normal ouput
+        cout << " words found in ";
         T.End();                        //End timer- all matches have been found
 
         sec = T.Seconds();              //Set to number of seconds
         millsec = T.MilliSeconds();     //Set to number of milliseconds
         
         cout << setw(4) << sec << " seconds" << endl; //Diplay time to find matches
-        io << WordDefs.Suggestions(total) << endWord; //Display suggested matches
+        WordDefs.Suggestions(total);
+        io << endWord; //Display suggested matches
         
     }
 }
