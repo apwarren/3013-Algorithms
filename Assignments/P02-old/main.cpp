@@ -8,7 +8,7 @@
 * Semester:         Spring 2021
 *
 * Description:
-*       This program takes words from a text file and places
+*       This program takes words and definition from a json file and places
 *       the word and definition separately into a linked list. The list will
 *       be sorted due to the JsonFacade class. After the list is sorted in 
 *       O(n) time, the program will then prompt the user to type in a letter
@@ -25,20 +25,23 @@
 *
 * Files:
 *       main.cpp         :  driver program
-*       dictionary.txt   :  file containing words and definitions to be put in list
+*       dict_w_defs.json :  file containing words and definitions to be put in list
+*       json.hpp         :  program to handle and retrieve dict_w_defs.json
+*       JsonFacade.hpp   :  program to condense json.hpp
 *       mygetch.hpp      :  program to allow getching and user input
 *       Timer.hpp        :  program to time how long it takes to find similar words
-*       termcolor.hpp         :  program to help with formatting screen ouput
+*       trio.hpp         :  program to help with formatting screen ouput
 *
 *******************************************************************************/
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include "JsonFacade.hpp"       // need to grab a copy from resources folder
 #include "mygetch.hpp"
-#include "termcolor.hpp"
+#include "trio.hpp"
 #include <time.h>
 #include <chrono> 
-#include "timer.hpp"            // need to grab a copy from resources folder
+#include "Timer.hpp"            // need to grab a copy from resources folder
 using namespace std;
 
 /**
