@@ -18,7 +18,7 @@ for similar words based on the last search it did.
 
 |   #   | File                                                                                         | Description                     |
 | :---: | -------------------------------------------------------------------------------------------- | ------------------------------- |
-|   1   | [main.cpp](https://github.com/apwarren/3013-Algorithms-Warren/blob/master/Assignments/P02/main.cpp) | Main driver of Stack program. |
+|   1   | [main.cpp](https://github.com/apwarren/3013-Algorithms-Warren/blob/master/Assignments/P02/main.cpp) | Main driver of Linear Search program. |
 |   2   | [dictionary.txt](https://github.com/apwarren/3013-Algorithms-Warren/blob/master/Assignments/P02/dictionary.txt) | File containing all words. |
 |   3   | [mygetch.hpp](https://github.com/apwarren/3013-Algorithms-Warren/blob/master/Assignments/P02/mygetch.hpp) | File to allow for getching user input without needing for any carriage returns |
 |   4   | [timer.hpp](https://github.com/apwarren/3013-Algorithms-Warren/blob/master/Assignments/P02/timer.hpp) | Header file for handling the timer for seeing how long program takes in searching |
