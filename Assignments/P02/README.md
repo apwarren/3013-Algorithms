@@ -23,7 +23,7 @@ for similar words based on the last search it did.
 |   3   | [mygetch.hpp](https://github.com/apwarren/3013-Algorithms-Warren/blob/master/Assignments/P02/mygetch.hpp) | File to allow for getching user input without needing for any carriage returns |
 |   4   | [timer.hpp](https://github.com/apwarren/3013-Algorithms-Warren/blob/master/Assignments/P02/timer.hpp) | Header file for handling the timer for seeing how long program takes in searching |
 |   5   | [trio.hpp](https://github.com/apwarren/3013-Algorithms-Warren/blob/master/Assignments/P02/trio.hpp) | Header file for formatting and manipulating screen output. |
-|   6   | [termcolor.hpp](https://github.com/apwarren/3013-Algorithms-Warren/blob/master/Assignments/P02/trio.hpp) | Header file for manipulating color in command prompt. |
+|   6   | [termcolor.hpp](https://github.com/apwarren/3013-Algorithms-Warren/blob/master/Assignments/P02/termcolor.hpp) | Header file for manipulating color in command prompt. |
 
 
 
