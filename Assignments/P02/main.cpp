@@ -181,7 +181,6 @@ class List
     Node* Current;        //Points to last placed viewed in list
     int size;             //Size of the list
     int total;            //Number of matching words in list compared to input
-    int index;            //Index of letter to compare
     bool Found;           //Flag to see if letter has been found
 
   public:
