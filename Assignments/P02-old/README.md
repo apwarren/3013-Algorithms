@@ -15,6 +15,8 @@ display the time as well to the screen. As each letter is typed to the screen
 from the user the search will become faster as the program continues to look 
 for similar words based on the last search it did. 
 
+<[Link to Program on Replit](https://replit.com/@apwarren/ProcessLinTime)>
+
 ### Files:
 
 |   #   | File                                                                                         | Description                     |
