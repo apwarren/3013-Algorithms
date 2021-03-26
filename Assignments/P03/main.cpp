@@ -10,8 +10,8 @@
 * Description:
 *       This program takes words and definition from a json file and places
 *       the word and definition separately into a binary search tree. The tree will
-*       be sorted due to the JsonFacade class. The tree will ensure that it is balanced
-*       by finding the middle of the sorted list and branching off each middle section
+*       be sorted due to the JsonFacade class. The tree ensures that its balanced
+*       by finding the middle of the list and branching off each middle section
 *       so that the search will maintain logn time. After the tree is formed in 
 *       O(n) time, the program will then prompt the user to type in a letter
 *       and show how many words were found that matched with the letter typed. 
@@ -149,7 +149,7 @@ class wordNode
 struct Node
 {
     wordNode* Data; //Place to store any wordNode data in list
-    Node *left;     //Address of the left node of a parent node (smaller value than parent)
+    Node *left;     //Address of left node of parent node (smaller val than parent)
     Node *right;    //Address of the right node (greater value than parent)
 };	
 
@@ -220,8 +220,9 @@ class BinarySearchTree
     *    This function fills the list with values given from a JsonFacade class
     *    that gets words and definitions from a json file. The method 
     *    then calls the Insert function to directly place the items into
-    *    the binary search tree. Insert is separate from fill as Insert handles placing
-    *    items into the tree directlhy while Fill handles all json implementation. 
+    *    the binary search tree. Insert is separate from fill as Insert handles 
+    *    placing items into the tree directlhy while Fill handles all json 
+    *    implementation. 
     * Params:
     *    JsonFacade :   Class containing words and defintions to place into tree
     *
@@ -234,17 +235,18 @@ class BinarySearchTree
         values = J.getValues();      //Get vector of all defs for list
         size = keys.size();          //Size of vector = size of list
 
-        Head = Insert(keys, values, 0, size-1); //Implement tree recursively. Head is root of tree
+        Head = Insert(keys, values, 0, size-1);//Implement tree recursively.
     }
 
     /**
     * Public: Find
     *    This function compares all words in the list to the current typed word
-    *    and only compares a substring with the same length from the dictionary word.
-    *    This function hides all the innerworkings of the tree and its nodes. It allows 
-    *    for anything outside of the class to compare a string without showing and relying on
-    *    it to know how its achieved. This method calls the private Find function to actually
-    *    begin the search and recursively return how many matches were found in the tree. 
+    *    and only compares a substring with the same length from the dictionary 
+    *    word. This function hides all the innerworkings of the tree and its nodes.
+    *    It allows for anything outside of the class to compare a string without 
+    *    showing and relying on it to know how its achieved. This method calls the
+    *    private Find function to actually begin the search and recursively return
+    *    how many matches were found in the tree. 
     * Params:
     *    string   :   typed word to compare with tree's node word
     *
@@ -320,14 +322,15 @@ class BinarySearchTree
             return NULL;
         }
 
-        int middle = (start+end)/2; //Get middle to binary traverse for balanced tree
+        int middle = (start+end)/2; //Get middle to balance tree properly
 
-        Node* root = new Node;                                  //Create a new node/leaf
-        root->Data = new wordNode(keys[middle], values[middle]);//Store new data into leaf
+        Node* root = new Node;          //Create a new node/leaf
+                                        //Store new data into leaf
+        root->Data = new wordNode(keys[middle], values[middle]);
 
 
-        root->left = Insert(keys, values, start,  middle - 1);  //Create left side of branch
-        root->right = Insert(keys, values, middle + 1, end);    //Create right side of branch
+        root->left = Insert(keys, values, start,  middle - 1);  //Create left side
+        root->right = Insert(keys, values, middle + 1, end);    //Create right side
 
         return root;
        
@@ -336,21 +339,22 @@ class BinarySearchTree
     /**
     * Private: Find
     *    This function compares all words in the list to the current typed word
-    *    and only compares a substring with the same length from the dictionary word.
-    *    The strings are compared using the compare method in the string library in 
-    *    which it total the ascii value of the typed word with the matching substring
-    *    of the tree's word. It then subtracts the two values. If the strings match
-    *    then the value will be 0 and the tree branches off both left and right to 
-    *    continue to see if more matches are nearby. If the subtracted value is a 
-    *    negative number then the dictionary word is after the desired word in the
-    *    alphabet and only the left side of the node will be traversed as none of the 
-    *    right side can match. Similarly, if the subtraction is greater than 0, the
-    *    substring is before the typed word in the alphabet and only the right side of
-    *    the current node is traversed. This allows for log(n) search time where not 
-    *    all of the tree has to be searched to find all matches. The method also fills
-    *    an array of size 10 with the first ten matching words fourd in the tree to be
-    *    printed later in the Suggestions function. The function returns the total 
-    *    number of matches found in the tree through recursion.
+    *    and only compares a substring with the same length from the dictionary 
+    *    word. The strings are compared using the compare method in the string 
+    *    library in which it total the ascii value of the typed word with the 
+    *    matching substring of the tree's word. It then subtracts the two values.
+    *    If the strings match then the value will be 0 and the tree branches off
+    *    both left and right to continue to see if more matches are nearby. If
+    *    the subtracted value is a negative number then the dictionary word is
+    *    after the desired word in the alphabet and only the left side of the node
+    *    will be traversed as none of the right side can match. Similarly, if the
+    *    subtraction is greater than 0, the substring is before the typed word in
+    *    the alphabet and only the right side of the current node is traversed.
+    *    This allows for log(n) search time where not all of the tree has to be
+    *    searched to find all matches. The method also fills an array of size 10
+    *    with the first ten matching words fourd in the tree to be printed later
+    *    in the Suggestions function. The function returns the total number of
+    *    matches found in the tree through recursion.
     * Params:
     *    Node*    :   current root node to compare with string
     *    string   :   typed word to compare with tree's node word
@@ -372,30 +376,32 @@ class BinarySearchTree
         
         DictWord = root->Data->getWord();  //Get each dictionary word
 
-        int comparison = DictWord.compare(0, word.size(), word);//Get difference of ascii values from strings
-
+        //Get difference of ascii values from strings
+        int comparison = DictWord.compare(0, word.size(), word);
 
         if(comparison == 0)                         //Word matches substring
         {       
           if(SuggestedSum < 10)     //Place first 10 matches into array
           {
             suggestedWords[SuggestedSum] = DictWord;//Add word to suggested words
-            SuggestedSum++;                         //Word has been added to vector/ size increments
+            SuggestedSum++;                         //Word has been added to vector
           }
                                                     //Continue looking for matches
-          return 1 + Find(root->right, word, SuggestedSum) + Find(root->left, word, SuggestedSum); //save # of matches
+          return 1 +                                //save # of matches
+            Find(root->right, word, SuggestedSum) 
+            + Find(root->left, word, SuggestedSum); 
         }
 
 
-        else if(comparison < 0)                     //Word is after root word
+        else if(comparison < 0)                  //Word is after root word
         {
-                                                    //Only search right side of branch
+                                                 //Only search right side
           return Find(root->right, word, SuggestedSum);
         }
 
-        else                                        //Word is before root word in alphabet
+        else                                     //Word is before root in alphabet
         {
-                                                    //Only search left side of branch
+                                                 //Only search left side
           return Find(root->left, word, SuggestedSum);
         }
     }
@@ -461,7 +467,7 @@ int main()
         
         cout << setw(4) << sec << " seconds" << endl; //Diplay time to find matches
         WordDefs.Suggestions(total);                  //Display suggested matches
-        io << endWord;                                //Place cursor after typed word
+        io << endWord;                                //Place cursor after word
         
     }
 }
