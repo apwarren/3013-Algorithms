@@ -22,7 +22,7 @@ in red on the screen as well as the time and first suggested word in the list.
 
 |   #   | File                                                                                         | Description                     |
 | :---: | -------------------------------------------------------------------------------------------- | ------------------------------- |
-|   1   | [main.cpp](https://github.com/apwarren/3013-Algorithms-Warren/blob/master/Assignments/P04/main.cpp) | Main driver of Linear Search program. |
+|   1   | [main.cpp](https://github.com/apwarren/3013-Algorithms-Warren/blob/master/Assignments/P04/main.cpp) | Main driver of Trie Tree program. |
 |   2   | [dictionary.txt](https://github.com/apwarren/3013-Algorithms-Warren/blob/master/Assignments/P04/dictionary.txt) | File containing all words. |
 |   3   | [mygetch.hpp](https://github.com/apwarren/3013-Algorithms-Warren/blob/master/Assignments/P04/mygetch.hpp) | File to allow for getching user input without needing for any carriage returns |
 |   4   | [timer.hpp](https://github.com/apwarren/3013-Algorithms-Warren/blob/master/Assignments/P04/timer.hpp) | Header file for handling the timer for seeing how long program takes in searching |
