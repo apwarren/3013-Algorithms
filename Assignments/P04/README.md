@@ -16,7 +16,7 @@ and will also display this time to the screen. The typed word will appear
 in red on the screen as well as the time and first suggested word in the list.
 
 
-[Link to Program on Replit](https://replit.com/@apwarren/ProcessTrieTime#main.cpp):
+<[Link to Program on Replit](https://replit.com/@apwarren/ProcessTrieTime#main.cpp)>
 
 ### Files:
 
